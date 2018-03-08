@@ -339,7 +339,7 @@ int CDiskFile::FindFile(char *result, const char *filename, const char *filter)
 				const char *pattern = filename + pathlen;
 
 				// iterate all directory entries
-				while (pent = readdir(pdir)) {
+				while ((pent = readdir(pdir)) != NULL) {
 					// skip any entry that is not a regular file
 #if defined _DIRENT_HAVE_D_TYPE || defined HAVE_STRUCT_DIRENT_D_TYPE
 					if (pent->d_type != DT_REG)
