@@ -9,7 +9,7 @@
 
 
 
-//-- Linux changes
+#ifndef _WIN32
 
 void GetLocalTime(LPSYSTEMTIME lpSystemTime)
 {
@@ -27,6 +27,4 @@ void GetLocalTime(LPSYSTEMTIME lpSystemTime)
         lpSystemTime->wMilliseconds = 0;
 }
 
-//-- Linux changes
-
-
+#endif

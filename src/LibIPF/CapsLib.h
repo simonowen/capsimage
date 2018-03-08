@@ -7,11 +7,9 @@
 #endif
 #include "ComLib.h"
 
-//-- Linux changes
 #ifdef __cplusplus
 extern "C" {
 #endif // __cplusplus
-//-- Linux changes
 
 ExtSub SDWORD __cdecl CAPSInit();
 ExtSub SDWORD __cdecl CAPSExit();
@@ -41,10 +39,8 @@ ExtSub SDWORD __cdecl CAPSGetImageType(PCHAR name);
 ExtSub SDWORD __cdecl CAPSGetImageTypeMemory(PUBYTE buffer, UDWORD length);
 ExtSub SDWORD __cdecl CAPSGetDebugRequest();
 
-//-- Linux changes
 #ifdef __cplusplus
 }
 #endif // __cplusplus
-//-- Linux changes
 
 #endif

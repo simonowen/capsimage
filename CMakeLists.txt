@@ -21,11 +21,17 @@ target_include_directories(capsimage PRIVATE
 	src/Codec
 	src/Device)
 
+if (WIN32)
+	target_include_directories(capsimage PRIVATE src/Compatibility)
+endif()
+
 configure_file(src/config.h.in ${CMAKE_BINARY_DIR}/config.h)
 target_compile_definitions(capsimage PRIVATE HAVE_CONFIG_H=1)
 
 install(TARGETS capsimage
+	ARCHIVE DESTINATION lib
 	LIBRARY DESTINATION lib
+	RUNTIME DESTINATION bin
 	FRAMEWORK DESTINATION "/Library/Frameworks"
 	PUBLIC_HEADER DESTINATION include/caps)
 install(FILES ${API_HEADERS} DESTINATION include/caps)

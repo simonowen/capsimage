@@ -18,7 +18,7 @@
 #define ExtSub extern "C" DllSub
 #define ExtVar extern "C" DllVar
 
-//-- Linux changes
+#ifndef _WIN32
 #undef ExtSub
 #define ExtSub
-//-- Linux changes
+#endif

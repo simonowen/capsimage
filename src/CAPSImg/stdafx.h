@@ -6,43 +6,54 @@
 #pragma once
 
 // OS compatiblity
-//#include "targetver.h"		//-- Linux changes
+#ifdef _WIN32
+#include "targetver.h"
+#endif
 
 #define WIN32_LEAN_AND_MEAN             // Exclude rarely-used stuff from Windows headers
+#define _CRT_SECURE_NO_WARNINGS         // avoid _s warnings.
 
 // Windows specific
-//#include <windows.h>			//-- Linux changes
+#ifdef _WIN32
+#include <windows.h>
+#endif
 
 // detect memory leaks in debug builds
 #define _CRTDBG_MAP_ALLOC
 
 // standard C/C++ includes
 #include <stdlib.h>
-//#include <crtdbg.h>			//-- Linux changes
+#ifdef _WIN32
+#include <crtdbg.h>
+#endif
 #include <stdint.h>
 #include <stdio.h>
 #include <assert.h>
 #include <vector>
-//#include <io.h>			//-- Linux changes
-//#include <direct.h>			//-- Linux changes
+#ifdef _WIN32
+#include <io.h>
+#include <direct.h>
+#endif
 #include <dirent.h>
 
-//-- Linux changes
 #include <stddef.h>			// offsetof
 #include <string.h>
 #include <ctype.h>
 #include <sys/stat.h>
-#include <unistd.h>
 #include <time.h>			// localtime
+
+#ifndef _WIN32
+#include <unistd.h>
 #define MAX_PATH ( 260 )
 #ifndef __cdecl
 #define __cdecl
 #endif
+
 #define _lrotl(x,n) (((x) << (n)) | ((x) >> (sizeof(x)*8-(n))))
 #define _lrotr(x,n) (((x) >> (n)) | ((x) << (sizeof(x)*8-(n))))
 typedef const char *LPCSTR;
 typedef const char *LPCTSTR;
-//-- Linux changes
+#endif
 
 
 #define INTEL
@@ -85,7 +96,7 @@ typedef const char *LPCTSTR;
 #include "CapsFormatMFM.h"
 
 
-//-- Linux changes
+#ifndef _WIN32
 #define _access access
 #ifndef __MINGW32__
 #define _mkdir(x) mkdir(x,0)
@@ -107,6 +118,4 @@ typedef struct _SYSTEMTIME {
         WORD wMilliseconds;
 } SYSTEMTIME, *LPSYSTEMTIME;
 extern "C" void GetLocalTime(LPSYSTEMTIME lpSystemTime);
-//-- Linux changes
-
-
+#endif
