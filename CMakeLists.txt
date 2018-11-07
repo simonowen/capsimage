@@ -33,7 +33,7 @@ if (APPLE AND BUILD_FRAMEWORK)
     FRAMEWORK_VERSION C
     MACOSX_FRAMEWORK_IDENTIFIER com.kryoflux)
   set_source_files_properties(${API_HEADERS} PROPERTIES
-    MACOSX_PACKAGE_LOCATION Headers/caps)
+    MACOSX_PACKAGE_LOCATION Headers/caps5)
   set(CMAKE_OSX_DEPLOYMENT_TARGET "10.9")
 endif ()
 
@@ -49,8 +49,8 @@ install(TARGETS capsimage
   LIBRARY DESTINATION lib
   RUNTIME DESTINATION bin
   FRAMEWORK DESTINATION "/Library/Frameworks"
-  PUBLIC_HEADER DESTINATION include/caps)
+  PUBLIC_HEADER DESTINATION include/caps5)
 
 if (NOT APPLE OR NOT BUILD_FRAMEWORK)
-  install(FILES ${API_HEADERS} DESTINATION include/caps)
+  install(FILES ${API_HEADERS} DESTINATION include/caps5)
 endif ()

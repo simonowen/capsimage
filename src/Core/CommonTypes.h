@@ -7,6 +7,18 @@ typedef int16_t WORD;
 typedef int32_t DWORD;
 #endif
 
+#ifdef AMIGA
+#include <exec/types.h>
+typedef UBYTE CapsUByte;
+typedef LONG  CapsLong;
+typedef ULONG CapsULong;
+#else
+#include <stdint.h>
+typedef uint8_t  CapsUByte;
+typedef int32_t  CapsLong;
+typedef uint32_t CapsULong;
+#endif // AMIGA
+
 typedef void *PVOID;
 typedef char *PCHAR;
 
