@@ -1,6 +1,8 @@
 #ifndef CAPSFDC_H
 #define CAPSFDC_H
 
+#include <ComLib.h>
+
 // drive defaults
 #define CAPSDRIVE_35DD_RPM 300
 #define CAPSDRIVE_35DD_HST 83

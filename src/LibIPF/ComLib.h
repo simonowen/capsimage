@@ -21,4 +21,7 @@
 #ifndef _WIN32
 #undef ExtSub
 #define ExtSub
+#ifndef __cdecl
+#define __cdecl __attribute__((cdecl))
+#endif
 #endif
