@@ -46,7 +46,11 @@
 #include <unistd.h>
 #define MAX_PATH ( 260 )
 #ifndef __cdecl
+#if defined(__GNUC__) && !defined(__LP64__)
 #define __cdecl __attribute__((cdecl))
+#else
+#define __cdecl
+#endif
 #endif
 
 #define _lrotl(x,n) (((x) << (n)) | ((x) >> (sizeof(x)*8-(n))))
