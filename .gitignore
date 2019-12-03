@@ -1,7 +1,7 @@
-.vs
-*.vcxproj.user
-**/Debug/
-**/Release/
-**/x64/
-*.aps
-*.log
+.*
+!.gitignore
+!.travis.yml
+Thumbs.db
+/out
+/CMakeSettings.json
+/Releases
