@@ -1,11 +1,16 @@
 cmake_minimum_required(VERSION 3.3)
 project(capsimage)
 
+include (GNUInstallDirs)
+include (FindPkgConfig)
+
 set(PROJECT_TITLE CAPSImage)
 set(PROJECT_TITLE_WIN32 CAPSImg)
 
 set(MAJOR_VERSION 5)
 set(MINOR_VERSION 1)
+set(PROJECT_VERSION ${MAJOR_VERSION}.${MINOR_VERSION})
+set(PROJECT_DESCRIPTION "CAPSImage IPF/SPS decoder library written in C++")
 
 option(BUILD_SHARED_LIBS "Build a dynamic library instead of static library" ON)
 
@@ -38,6 +43,8 @@ set_target_properties(${PROJECT_NAME} PROPERTIES
 
 target_include_directories(${PROJECT_NAME} PRIVATE
   ${CMAKE_BINARY_DIR}
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src>
+  $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}/caps${INCLUDE_SUFFIX}>
   src/LibIPF
   src/CAPSImg
   src/Core
@@ -64,13 +71,24 @@ configure_file(src/config.h.in ${CMAKE_BINARY_DIR}/config.h)
 configure_file(src/LibIPF/CapsLibVersion.h.in ${CMAKE_BINARY_DIR}/CapsLibVersion.h)
 target_compile_definitions(${PROJECT_NAME} PRIVATE HAVE_CONFIG_H=1)
 
-install(TARGETS ${PROJECT_NAME}
-  ARCHIVE DESTINATION lib
-  LIBRARY DESTINATION lib
-  RUNTIME DESTINATION bin
+set(install_prefix "${CMAKE_INSTALL_PREFIX}")
+set(install_libdir "${CMAKE_INSTALL_LIBDIR}")
+set(install_include_suffix "${INCLUDE_SUFFIX}")
+
+configure_file(lib${PROJECT_NAME}.pc.in ${PROJECT_BINARY_DIR}/lib${PROJECT_NAME}.pc @ONLY)
+
+set(ENV{PKG_CONFIG_PATH} "${PROJECT_BINARY_DIR}:$ENV{PKG_CONFIG_PATH}")
+
+install(TARGETS ${PROJECT_NAME} EXPORT ${PROJECT_NAME}Config
+  ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+  LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+  RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
   FRAMEWORK DESTINATION "/Library/Frameworks"
-  PUBLIC_HEADER DESTINATION include/caps${INCLUDE_SUFFIX})
+  PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/caps${INCLUDE_SUFFIX})
+
+install(FILES lib${PROJECT_NAME}.pc DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig/)
+
 
 if (NOT APPLE OR NOT BUILD_FRAMEWORK)
-  install(FILES ${API_HEADERS} DESTINATION include/caps${INCLUDE_SUFFIX})
+  install(FILES ${API_HEADERS} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/caps${INCLUDE_SUFFIX})
 endif()
