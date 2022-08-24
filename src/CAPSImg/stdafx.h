@@ -53,12 +53,14 @@
 #endif
 #endif
 
-#define _lrotl(x,n) (((x) << (n)) | ((x) >> (sizeof(x)*8-(n))))
-#define _lrotr(x,n) (((x) >> (n)) | ((x) << (sizeof(x)*8-(n))))
 typedef const char *LPCSTR;
 typedef const char *LPCTSTR;
 #endif
 
+#ifndef _MSC_VER
+#define _lrotl(x,n) (((x) << (n)) | ((x) >> (sizeof(x)*8-(n))))
+#define _lrotr(x,n) (((x) >> (n)) | ((x) << (sizeof(x)*8-(n))))
+#endif
 
 #define INTEL
 #define MAX_FILENAMELEN (MAX_PATH*2)
@@ -108,8 +110,6 @@ typedef const char *LPCTSTR;
 #define _mkdir(x) mkdir(x)
 #endif
 #define d_namlen d_reclen
-#define __assume(cond) do { if (!(cond)) __builtin_unreachable(); } while (0)
-#define min(x, y) (((x) < (y)) ? (x) : (y))
 
 typedef struct _SYSTEMTIME {
         WORD wYear;
@@ -122,4 +122,17 @@ typedef struct _SYSTEMTIME {
         WORD wMilliseconds;
 } SYSTEMTIME, *LPSYSTEMTIME;
 extern "C" void GetLocalTime(LPSYSTEMTIME lpSystemTime);
+#endif
+
+#ifndef _MSC_VER
+#define __assume(cond) do { if (!(cond)) __builtin_unreachable(); } while (0)
+#endif
+
+#ifndef min
+#ifdef __cplusplus
+#include <algorithm>
+#define min(x, y) (std::min)((x), (y))
+#else
+#define min(x, y) (((x) < (y)) ? (x) : (y))
+#endif
 #endif
