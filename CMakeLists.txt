@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.3)
 project(capsimage)
 
 set(PROJECT_TITLE CAPSImage)
-set(PROJECT_TITLE_WIN32 CAPSImg)
+set(PROJECT_TITLE_WIN32 capsimg)
 
 set(MAJOR_VERSION 5)
 set(MINOR_VERSION 1)
@@ -57,7 +57,9 @@ endif()
 
 if (WIN32)
   set_target_properties(${PROJECT_NAME} PROPERTIES OUTPUT_NAME ${PROJECT_TITLE_WIN32})
+  set_target_properties(${PROJECT_NAME} PROPERTIES PREFIX "" LINK_FLAGS_RELEASE -s)
   target_include_directories(${PROJECT_NAME} PRIVATE src/Compatibility)
+  set(CMAKE_INSTALL_PREFIX "/mingw32")
 endif()
 
 configure_file(src/config.h.in ${CMAKE_BINARY_DIR}/config.h)
