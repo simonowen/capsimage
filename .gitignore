@@ -5,3 +5,15 @@ Thumbs.db
 /out
 /CMakeSettings.json
 /Releases
+CMakeCache.txt
+CMakeFiles/
+Makefile
+libcapsimage.pc
+libcapsimage.so
+libcapsimage.lib
+libcapsimage.so.*
+cmake_install.cmake
+install_manifest.txt
+CapsLibVersion.h
+config.h
+_deps/
