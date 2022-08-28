@@ -1,0 +1,3 @@
+[submodule "src/Compatibility/dirent"]
+	path = src/Compatibility/dirent
+	url = http://github.com/tronkko/dirent

@@ -3,7 +3,8 @@ project(capsimage)
 
 include (GNUInstallDirs)
 include (FindPkgConfig)
-
+set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
+include (FindCapsImage)
 set(PROJECT_TITLE CAPSImage)
 set(PROJECT_TITLE_WIN32 CAPSImg)
 
@@ -64,7 +65,8 @@ endif()
 
 if (WIN32)
   set_target_properties(${PROJECT_NAME} PROPERTIES OUTPUT_NAME ${PROJECT_TITLE_WIN32})
-  target_include_directories(${PROJECT_NAME} PRIVATE src/Compatibility)
+  target_include_directories(${PROJECT_NAME} PRIVATE
+	  src/Compatibility/dirent/include)
 endif()
 
 configure_file(src/config.h.in ${CMAKE_BINARY_DIR}/config.h)
