@@ -1,0 +1,28 @@
+name: Linux CI
+
+on: [workflow_dispatch, push, pull_request]
+
+jobs:
+  build:
+    runs-on: ${{matrix.os}}
+
+    strategy:
+      matrix:
+        os: [ ubuntu-22.04, ubuntu-20.04 ]
+        compiler:
+          - { cc: "gcc", cxx: "g++" }
+          - { cc: "clang", cxx: "clang++" }
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Configure
+      run: cmake -B ${{github.workspace}}/build
+      env:
+        CC: ${{matrix.cc}}
+        CXX: ${{matrix.cxx}}
+
+    - name: Build
+      run: cmake --build ${{github.workspace}}/build
+      env:
+        MAKEFLAGS: "-j2"
