@@ -1,6 +1,6 @@
 .*
 !.gitignore
-!.travis.yml
+!.github
 Thumbs.db
 /out
 /CMakeSettings.json
