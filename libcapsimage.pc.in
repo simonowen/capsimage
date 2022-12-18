@@ -1,8 +1,8 @@
-prefix=@install_prefix@
+prefix=@CMAKE_INSTALL_PREFIX@
 exe_prefix=${prefix}
-libdir=${prefix}/@install_libdir@
-includedir=${prefix}/@install_includedir@
-include_suffix=@install_include_suffix@
+libdir=${prefix}/@CMAKE_INSTALL_LIBDIR@
+includedir=${prefix}/@CMAKE_INSTALL_INCLUDEDIR@
+include_suffix=@INCLUDE_SUFFIX@
 
 Name: lib@PROJECT_NAME@
 Description: @PROJECT_DESCRIPTION@
@@ -10,4 +10,4 @@ Version: @PROJECT_VERSION@
 
 Requires:
 Libs: -L${libdir} -l@PROJECT_NAME@
-Cflags: -I${includedir} -I${includedir}/caps${install_include_suffix}
+Cflags: -I${includedir} -I${includedir}/caps${include_suffix}
