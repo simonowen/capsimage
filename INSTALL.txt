@@ -1,0 +1,6 @@
+To build and install CAPSImage on UNIX-like CMake systems run:
+
+cmake -DADD_INCLUDE_SUFFIX=ON . && make install
+
+Most projects and coexisting different versions expect the suffix
+to be enabled
