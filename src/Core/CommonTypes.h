@@ -2,9 +2,10 @@
 #define COMMONTYPES_H
 
 #ifndef _WIN32
-typedef int8_t BYTE;
-typedef int16_t WORD;
-typedef int32_t DWORD;
+#include <cstdint>
+typedef uint8_t BYTE;
+typedef uint16_t WORD;
+typedef uint32_t DWORD;
 #endif
 
 #ifdef AMIGA
