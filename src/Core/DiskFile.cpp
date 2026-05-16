@@ -75,8 +75,10 @@ int CDiskFile::OpenAnyPath(char **path, const char *name, unsigned int mode)
 		// try each path entry in order
 		for (pos=0; path[pos]; pos++) {
 			// append name to current path entry
-			int len=sprintf(tempname, "%s", path[pos]);
-			sprintf(tempname+len, "%s", name);
+			int len=snprintf(tempname, sizeof(tempname), "%s", path[pos]);
+			if (len < 0 || (size_t)len >= sizeof(tempname))
+				continue;
+			snprintf(tempname+len, sizeof(tempname)-(size_t)len, "%s", name);
 
 			// open the file, return the name index position on success
 			if (!Open(tempname, mode))
